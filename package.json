@@ -1,9 +1,10 @@
 {
-  "name": "node-sandbox",
+  "name": "tic-tac-toe",
   "version": "1.0.0",
   "description": "Barebones starting point for node",
   "main": "index.js",
   "scripts": {
+    "start": "",
     "test": "_mocha test"
   },
   "repository": {
