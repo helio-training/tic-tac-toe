@@ -13,9 +13,15 @@ module.exports = wallaby => ({
     runner: 'node'
   },
 
-  setup: () => require('./test/helpers'),
+  testFramework: 'ava',
+
+  setup: () => {
+    require('babel-polyfill');
+  },
 
   compilers: {
     '**/*.js': wallaby.compilers.babel()
-  }
+  },
+
+  debug: true
 });
