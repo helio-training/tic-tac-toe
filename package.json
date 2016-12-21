@@ -1,7 +1,7 @@
 {
   "name": "tic-tac-toe",
   "version": "1.0.0",
-  "description": "Barebones starting point for node",
+  "description": "Tick Tac Toe game",
   "main": "index.js",
   "scripts": {
     "start": "",

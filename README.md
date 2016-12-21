@@ -1,19 +1,17 @@
-# Node Sandbox
+# Assignment - Tic-Tac-Toe
 
-> A good place to start out if you'd like to quickly experiment with features
+> Tic-Tac-Toe framework
 
-### Getting Started
+## Getting Started
 
-Simply clone down the repository, then run the npm install command.
+Some instructions here...
 
-* Clone the repository
-* Navigate the the directory
-* Run `npm install` in the directory 
+### Resources
+
+* [Tic-Tac-Toe](https://en.wikipedia.org/wiki/Tic-tac-toe) (Just incase you wanted some strategy and forgot how to play)
 
 
-### Running the tests
 
-Use the `npm test` command on the terminal to run tests
 
 
 
