@@ -113,10 +113,10 @@ export default class {
    *
    */
   hasWon() {
-    return !checkRows(this.state) &&
-        !checkColumns(this.state) &&
-        !checkDiagnols(this.state) &&
-        this.validMoves().length === 0;
+//    return !checkRows(this.state) &&
+//        !checkColumns(this.state) &&
+//        !checkDiagnols(this.state) &&
+//        this.validMoves().length === 0;
   }
 
   /**
