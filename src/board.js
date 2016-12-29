@@ -1,6 +1,38 @@
-import { translateToIndexes } from './internals';
-
 const _board = Symbol('board');
+
+const INITIAL_STATE = [
+  'E', 'E', 'E',
+  'E', 'E', 'E',
+  'E', 'E', 'E'
+];
+
+const checkRows = (board) => {
+  for (let i = 0; i <= 6; i += 3) {
+    if (board[i] !== "E" && board[i] === B[i + 1] && board[i + 1] == board[i + 2]) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const checkColumns = (board) => {
+  for (let i = 0; i <= 2; i++) {
+    if (board[i] !== "E" && board[i] === B[i + 3] && board[i + 3] === board[i + 6]) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const checkDiagnols = (board) => {
+  for (let i = 0, j = 4; i <= 2; i += 2, j -= 2) {
+    if (board[i] !== "E" && board[i] == board[i + j] && board[i + j] === board[i + 2 * j]) {
+      return true;
+    }
+  }
+  return false;
+};
+
 
 export default class {
 
@@ -16,11 +48,11 @@ export default class {
   }
 
   constructor() {
-    this[_board] = [
-      ['E', 'E', 'E'],
-      ['E', 'E', 'E'],
-      ['E', 'E', 'E']
-    ];
+    this.reset();
+  }
+
+  reset() {
+    this[_board] = INITIAL_STATE.slice();
   }
 
   /**
@@ -31,11 +63,7 @@ export default class {
    * @returns {boolean}
    */
   isEmpty() {
-    let isEmpty = true;
-    this.state.forEach(row => {
-      isEmpty = row.some(col => col === 'E') && isEmpty;
-    });
-    return isEmpty;
+    return this.state.every(value => value === 'E');
   }
 
   /**
@@ -47,27 +75,7 @@ export default class {
    * @returns {'E'|'X'|'O'}
    */
   valueAt(position) {
-    const { x, y } = translateToIndexes(position);
-    return this.state[x][y];
-  }
-
-  /**
-   * Sets the value at a current position. Checks to make sure the position is empty.
-   *
-   * @public
-   *
-   * @param {number} position - The position 1-9
-   * @param {'X'|'O'} value - An X or O
-   *
-   * @returns {*}
-   */
-  setAt(position, value) {
-    if (this.canMove(position)) {
-      const { x, y } = translateToIndexes(position);
-      return this[_board][x][y] = value;
-    } else {
-      throw new Error('Invalid position');
-    }
+    return this.state[position];
   }
 
   /**
@@ -79,8 +87,7 @@ export default class {
    * @returns {boolean}
    */
   canMove(position) {
-    const value = this.valueAt(position);
-    return value === 'E';
+    return this.state[position] === 'E';
   }
 
   /**
@@ -92,7 +99,50 @@ export default class {
    * @param {'X'|'O'} value
    */
   move(position, value) {
-    this.setAt(position, value);
+    if (this.canMove(position)) {
+      this[_board][position] = value;
+    } else {
+      throw new Error('Invalid position');
+    }
+  }
+
+  /**
+   * Determines if a player has won
+   *
+   * @public
+   *
+   */
+  hasWon() {
+    return !checkRows(this.state) &&
+        !checkColumns(this.state) &&
+        !checkDiagnols(this.state) &&
+        this.validMoves().length === 0;
+  }
+
+  /**
+   * Retrieves the valid moves as a position
+   *
+   * @public
+   *
+   */
+  validMoves() {
+    const indexes = [];
+
+    this.state.forEach((v, index) => {
+      if (v === 'E') {
+        indexes.push(index);
+      }
+    });
+
+    return indexes;
+  }
+
+  /**
+   *
+   * @returns {Array}
+   */
+  shouldBlock() {
+    return [];
   }
 
 }

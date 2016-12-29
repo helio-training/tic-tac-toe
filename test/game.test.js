@@ -8,6 +8,12 @@ Test(`The board is accessible`, t => {
 
 Test(`The board is empty by default`, t => {
   const game = new Game();
-  const isEmpty = game.board.isEmpty();
-  t.truthy(isEmpty);
+  t.truthy(game.board.isEmpty());
+});
+
+
+Test(`The can get values at certain positions`, t => {
+  const game = new Game();
+  const empty = game.board.valueAt(1);
+  t.is(empty, 'E');
 });
