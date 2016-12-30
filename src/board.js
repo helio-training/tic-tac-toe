@@ -1,12 +1,14 @@
+import { PIECES } from './internals';
+
 const _board = Symbol('board');
 
 const INITIAL_STATE = [
-  'E', 'E', 'E',
-  'E', 'E', 'E',
-  'E', 'E', 'E'
+  PIECES.Empty, PIECES.Empty, PIECES.Empty,
+  PIECES.Empty, PIECES.Empty, PIECES.Empty,
+  PIECES.Empty, PIECES.Empty, PIECES.Empty
 ];
 
-const checkRows = (board) => {
+const checkRows = board => {
   for (let i = 0; i <= 6; i += 3) {
     if (board[i] !== "E" && board[i] === B[i + 1] && board[i + 1] == board[i + 2]) {
       return true;
@@ -15,7 +17,7 @@ const checkRows = (board) => {
   return false;
 };
 
-const checkColumns = (board) => {
+const checkColumns = board => {
   for (let i = 0; i <= 2; i++) {
     if (board[i] !== "E" && board[i] === B[i + 3] && board[i + 3] === board[i + 6]) {
       return true;
@@ -24,7 +26,7 @@ const checkColumns = (board) => {
   return false;
 };
 
-const checkDiagnols = (board) => {
+const checkDiagnols = board => {
   for (let i = 0, j = 4; i <= 2; i += 2, j -= 2) {
     if (board[i] !== "E" && board[i] == board[i + j] && board[i + j] === board[i + 2 * j]) {
       return true;
@@ -63,7 +65,7 @@ export default class {
    * @returns {boolean}
    */
   isEmpty() {
-    return this.state.every(value => value === 'E');
+    return this.state.every(value => value === PIECES.Empty);
   }
 
   /**
@@ -87,7 +89,7 @@ export default class {
    * @returns {boolean}
    */
   canMove(position) {
-    return this.state[position] === 'E';
+    return this.state[position] === PIECES.Empty;
   }
 
   /**
@@ -117,6 +119,8 @@ export default class {
 //        !checkColumns(this.state) &&
 //        !checkDiagnols(this.state) &&
 //        this.validMoves().length === 0;
+
+    return false;
   }
 
   /**
@@ -127,18 +131,16 @@ export default class {
    */
   validMoves() {
     const indexes = [];
-
     this.state.forEach((v, index) => {
-      if (v === 'E') {
+      if (v === PIECES.Empty) {
         indexes.push(index);
       }
     });
-
     return indexes;
   }
 
   /**
-   *
+   * Returns the positions that shul
    * @returns {Array}
    */
   shouldBlock() {

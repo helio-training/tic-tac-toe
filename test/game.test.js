@@ -1,19 +1,43 @@
 import Test from 'ava';
 import Game from '../src/game';
+import { PIECES, STATES } from '../src/internals';
 
 Test(`The board is accessible`, t => {
   const game = new Game();
   t.truthy(game.board);
 });
 
-Test(`The board is empty by default`, t => {
+Test('X goes first', t => {
   const game = new Game();
-  t.truthy(game.board.isEmpty());
+  t.is(game.turn, PIECES.X);
+});
+
+Test('Toggle turn flips the current players turn', t => {
+  const game = new Game();
+  t.is(game.turn, PIECES.X);
+
+  game.toggleTurn();
+  t.is(game.turn, PIECES.O);
+
+  game.toggleTurn();
+  t.is(game.turn, PIECES.X);
 });
 
 
-Test(`The can get values at certain positions`, t => {
+Test('START is the default status', t => {
   const game = new Game();
-  const empty = game.board.valueAt(1);
-  t.is(empty, 'E');
+  t.is(game.state, STATES.Start);
+});
+
+Test('moves is empty by default', t => {
+  const game = new Game();
+  t.deepEqual(game.moves, []);
+});
+
+Test(`#start() changes the status to running`, t => {
+  const game = new Game();
+  t.is(game.state, STATES.Start);
+
+  game.start();
+  t.is(game.state, STATES.Running);
 });
