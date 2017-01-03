@@ -8,36 +8,37 @@ const INITIAL_STATE = [
   PIECES.Empty, PIECES.Empty, PIECES.Empty
 ];
 
-const checkRows = board => {
-  for (let i = 0; i <= 6; i += 3) {
-    if (board[i] !== "E" && board[i] === B[i + 1] && board[i + 1] == board[i + 2]) {
-      return true;
-    }
-  }
-  return false;
-};
-
-const checkColumns = board => {
-  for (let i = 0; i <= 2; i++) {
-    if (board[i] !== "E" && board[i] === B[i + 3] && board[i + 3] === board[i + 6]) {
-      return true;
-    }
-  }
-  return false;
-};
-
-const checkDiagnols = board => {
-  for (let i = 0, j = 4; i <= 2; i += 2, j -= 2) {
-    if (board[i] !== "E" && board[i] == board[i + j] && board[i + j] === board[i + 2 * j]) {
-      return true;
-    }
-  }
-  return false;
-};
+//
+//const checkRows = board => {
+//  for (let i = 0; i <= 6; i += 3) {
+//    if (board[i] !== 'E' && board[i] === B[i + 1] && board[i + 1] == board[i + 2]) {
+//      return true;
+//    }
+//  }
+//  return false;
+//};
+//
+//const checkColumns = board => {
+//  for (let i = 0; i <= 2; i++) {
+//    if (board[i] !== 'E' && board[i] === B[i + 3] && board[i + 3] === board[i + 6]) {
+//      return true;
+//    }
+//  }
+//  return false;
+//};
+//
+//const checkDiagnols = board => {
+//  for (let i = 0, j = 4; i <= 2; i += 2, j -= 2) {
+//    if (board[i] !== 'E' && board[i] == board[i + j] && board[i + j] === board[i + 2 * j]) {
+//      return true;
+//    }
+//  }
+//  return false;
+//};
 
 
 export default class {
-
+  
   /**
    * Retrieves the current state of the board.
    *
@@ -48,15 +49,15 @@ export default class {
   get state() {
     return this[_board];
   }
-
+  
   constructor() {
     this.reset();
   }
-
+  
   reset() {
     this[_board] = INITIAL_STATE.slice();
   }
-
+  
   /**
    * Helper to determine if the board is empty
    *
@@ -67,7 +68,7 @@ export default class {
   isEmpty() {
     return this.state.every(value => value === PIECES.Empty);
   }
-
+  
   /**
    * Retrieves the value at the current position
    *
@@ -79,7 +80,7 @@ export default class {
   valueAt(position) {
     return this.state[position];
   }
-
+  
   /**
    * Can move to the coordinate
    *
@@ -91,7 +92,7 @@ export default class {
   canMove(position) {
     return this.state[position] === PIECES.Empty;
   }
-
+  
   /**
    * Do a move on the coordindate
    *
@@ -107,7 +108,7 @@ export default class {
       throw new Error('Invalid position');
     }
   }
-
+  
   /**
    * Determines if a player has won
    *
@@ -119,10 +120,10 @@ export default class {
 //        !checkColumns(this.state) &&
 //        !checkDiagnols(this.state) &&
 //        this.validMoves().length === 0;
-
+    
     return false;
   }
-
+  
   /**
    * Retrieves the valid moves as a position
    *
@@ -138,7 +139,7 @@ export default class {
     });
     return indexes;
   }
-
+  
   /**
    * Returns the positions that shul
    * @returns {Array}
@@ -146,5 +147,5 @@ export default class {
   shouldBlock() {
     return [];
   }
-
+  
 }
