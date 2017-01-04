@@ -15,10 +15,10 @@ Test('X goes first', t => {
 Test('Toggle turn flips the current players turn', t => {
   const game = new Game();
   t.is(game.turn, PIECES.X);
-
+  
   game.toggleTurn();
   t.is(game.turn, PIECES.O);
-
+  
   game.toggleTurn();
   t.is(game.turn, PIECES.X);
 });
@@ -37,7 +37,14 @@ Test('moves is empty by default', t => {
 Test(`#start() changes the status to running`, t => {
   const game = new Game();
   t.is(game.state, STATES.Start);
-
-  game.start();
+  
+  game.start('Bob');
   t.is(game.state, STATES.Running);
+  t.is(game.human.name, 'Bob');
+});
+
+
+Test(`#ai is set by default`, t => {
+  const game = new Game();
+  t.truthy(game.ai);
 });

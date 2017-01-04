@@ -1,3 +1,3 @@
-import Enum from 'es6-enum';
+import Enum from 'symbol-enum';
 
-export default Enum('StateChanged', 'PlayerTurn', 'AITurn', 'Turn', 'End');
+export default new Enum('StateChanged', 'PlayerTurn', 'AITurn', 'Turn', 'End', 'Invalid', 'TurnOver');

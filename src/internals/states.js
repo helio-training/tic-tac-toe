@@ -1,3 +1,3 @@
-import Enum from 'es6-enum';
+import Enum from 'symbol-enum';
 
-export default Enum('Start', 'Running', 'Lost', 'Draw', 'Win');
+export default new Enum('Start', 'Running', 'Draw', 'Win');

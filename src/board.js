@@ -45,6 +45,7 @@ export default class {
    * @public
    *
    * @type {Array<number>}
+   *
    */
   get state() {
     return this[_board];
@@ -54,6 +55,13 @@ export default class {
     this.reset();
   }
   
+  /**
+   * Reset the board
+   *
+   * @public
+   *
+   *
+   */
   reset() {
     this[_board] = INITIAL_STATE.slice();
   }
@@ -140,12 +148,6 @@ export default class {
     return indexes;
   }
   
-  /**
-   * Returns the positions that shul
-   * @returns {Array}
-   */
-  shouldBlock() {
-    return [];
-  }
+  
   
 }

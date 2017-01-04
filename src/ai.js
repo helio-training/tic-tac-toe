@@ -2,8 +2,18 @@ import { PIECES, EVENTS } from './internals';
 import Player from './player';
 import * as Notifications from './notifications';
 
+/**
+ * AI Player
+ *
+ * @public
+ *
+ * @extends {Player} Player
+ */
 export default class extends Player {
   
+  /**
+   * Creates a new AI Player
+   */
   constructor() {
     super('AI', PIECES.O);
   }
@@ -17,6 +27,22 @@ export default class extends Player {
    *
    */
   play(game = {}) {
-    
+    const { board } = game;
+    const position = this.getNextPosition(board);
+    board.move(position, this.piece);
+    this.finishTurn();
   }
+  
+  /**
+   * Determine the next position that should be played
+   *
+   * @private
+   *
+   * @returns {Array}
+   */
+  getNextPosition(board) {
+    const moves = board.validMoves();
+    return moves;
+  }
+  
 }

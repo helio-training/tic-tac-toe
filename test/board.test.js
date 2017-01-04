@@ -19,7 +19,7 @@ Test('Reset should set it to the initial state', t => {
   const board = new Board();
   board.move(0, 'X');
   t.falsy(board.isEmpty());
-
+  
   board.reset();
   t.truthy(board.isEmpty());
 });
@@ -41,7 +41,7 @@ Test('#validMoves returns all indexes by default', t => {
   const board = new Board();
   board.move(0, 'X');
   t.truthy(board.validMoves().length === 8);
-
+  
   board.move(5, 'X');
   t.truthy(board.validMoves().length === 7);
 });
@@ -49,14 +49,7 @@ Test('#validMoves returns all indexes by default', t => {
 Test('#move(position) throws and error if a piece is played from invalid position', t => {
   const board = new Board();
   board.move(0, 'X');
-
+  
   t.throws(() => board.move(0, 'X'));
-});
-
-
-Test('#shouldBlock() should be empty by default', t => {
-  const board = new Board();
-
-  t.deepEqual(board.shouldBlock(), []);
 });
 

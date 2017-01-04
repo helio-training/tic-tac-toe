@@ -1,3 +1,6 @@
+import { EVENTS } from './internals';
+import * as Notifications from './notifications';
+
 const _piece = Symbol('piece');
 const _name = Symbol('name');
 
@@ -17,5 +20,8 @@ export default class {
   }
   
   
+  finishTurn() {
+    Notifications.fire(EVENTS.TurnOver, {});
+  }
   
 }

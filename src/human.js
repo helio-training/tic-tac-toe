@@ -8,10 +8,6 @@ export default class extends Player {
   
   constructor(name) {
     super(name, PIECES.X);
-//    Notifications.on(EVENTS.PlayerTurn, () => {
-//      // Do turn based logic
-//      // Fire the TurnOver
-//    });
   }
   
   /**
@@ -19,10 +15,20 @@ export default class extends Player {
    *
    * @public
    *
-   * @param {Object} game
+   * @param {object} game
+   * @param {number} position
+   *
    */
-  play(game = {}) {
+  play(game = {}, position) {
+    const { board } = game;
     
+    try {
+      board.move(position, this.piece);
+      this.finishTurn();
+    } catch (ex) {
+      Notifications.fire(EVENTS.Invalid, { position });
+    }
   }
+  
   
 }
