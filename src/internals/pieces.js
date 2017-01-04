@@ -1,4 +1,3 @@
-import Enum from "es6-enum"
+import Enum from 'symbol-enum'
 
-
-export default Enum('Empty', 'X', 'O');
+export default new Enum('Empty', 'X', 'O');

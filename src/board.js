@@ -8,33 +8,33 @@ const INITIAL_STATE = [
   PIECES.Empty, PIECES.Empty, PIECES.Empty
 ];
 
-//
-//const checkRows = board => {
-//  for (let i = 0; i <= 6; i += 3) {
-//    if (board[i] !== 'E' && board[i] === B[i + 1] && board[i + 1] == board[i + 2]) {
-//      return true;
-//    }
-//  }
-//  return false;
-//};
-//
-//const checkColumns = board => {
-//  for (let i = 0; i <= 2; i++) {
-//    if (board[i] !== 'E' && board[i] === B[i + 3] && board[i + 3] === board[i + 6]) {
-//      return true;
-//    }
-//  }
-//  return false;
-//};
-//
-//const checkDiagnols = board => {
-//  for (let i = 0, j = 4; i <= 2; i += 2, j -= 2) {
-//    if (board[i] !== 'E' && board[i] == board[i + j] && board[i + j] === board[i + 2 * j]) {
-//      return true;
-//    }
-//  }
-//  return false;
-//};
+
+const rowWon = board => {
+  for (let i = 0; i <= 6; i += 3) {
+    if (board[i] !== PIECES.Empty && board[i] === board[i + 1] && board[i + 1] == board[i + 2]) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const columnWon = board => {
+  for (let i = 0; i <= 2; i++) {
+    if (board[i] !== PIECES.Empty && board[i] === board[i + 3] && board[i + 3] === board[i + 6]) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const diagonalWon = board => {
+  for (let i = 0, j = 4; i <= 2; i += 2, j -= 2) {
+    if (board[i] !== PIECES.Empty && board[i] == board[i + j] && board[i + j] === board[i + 2 * j]) {
+      return true;
+    }
+  }
+  return false;
+};
 
 
 export default class {
@@ -110,12 +110,15 @@ export default class {
    * @param {'X'|'O'} value
    */
   move(position, value) {
+    const piece = PIECES[value];
+    
     if (this.canMove(position)) {
-      this[_board][position] = value;
+      this[_board][position] = piece;
     } else {
       throw new Error('Invalid position');
     }
   }
+  
   
   /**
    * Determines if a player has won
@@ -124,12 +127,10 @@ export default class {
    *
    */
   hasWon() {
-//    return !checkRows(this.state) &&
-//        !checkColumns(this.state) &&
-//        !checkDiagnols(this.state) &&
-//        this.validMoves().length === 0;
-    
-    return false;
+    return rowWon(this.state) ||
+      columnWon(this.state) ||
+      diagonalWon(this.state) ||
+      this.validMoves().length === 0;
   }
   
   /**
@@ -147,7 +148,5 @@ export default class {
     });
     return indexes;
   }
-  
-  
   
 }

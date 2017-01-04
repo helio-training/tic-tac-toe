@@ -1,6 +1,5 @@
 import { PIECES, EVENTS } from './internals';
 import Player from './player';
-import * as Notifications from './notifications';
 
 /**
  * AI Player
@@ -42,6 +41,9 @@ export default class extends Player {
    */
   getNextPosition(board) {
     const moves = board.validMoves();
+    
+    // AI CODE
+    
     return moves;
   }
   

@@ -1,5 +1,7 @@
 import Test from 'ava';
 import Board from '../src/Board';
+import { PIECES } from '../src/internals'
+import Enum from 'symbol-enum';
 
 
 Test('Board is empty by default', t => {
@@ -52,4 +54,76 @@ Test('#move(position) throws and error if a piece is played from invalid positio
   
   t.throws(() => board.move(0, 'X'));
 });
+
+
+Test(`hasWon() is false when someone hasn't won yet`, t => {
+  const board = new Board();
+  t.falsy(board.hasWon());
+});
+
+
+Test(`hasWon() is true when someone has won on a row`, t => {
+  const board = new Board();
+  board.move(0, 'X');
+  board.move(1, 'X');
+  board.move(2, 'X');
+  t.truthy(board.hasWon());
+  
+  board.reset();
+  t.falsy(board.hasWon());
+  
+  board.move(3, 'X');
+  board.move(4, 'X');
+  board.move(5, 'X');
+  t.truthy(board.hasWon());
+  
+  board.reset();
+  t.falsy(board.hasWon());
+  
+  board.move(6, 'X');
+  board.move(7, 'X');
+  board.move(8, 'X');
+  t.truthy(board.hasWon());
+});
+
+
+Test(`hasWon() is true when someone has won vertically`, t => {
+  const board = new Board();
+  board.move(0, 'X');
+  board.move(3, 'X');
+  board.move(6, 'X');
+  t.truthy(board.hasWon());
+  
+  board.reset();
+  t.falsy(board.hasWon());
+  
+  board.move(1, 'X');
+  board.move(4, 'X');
+  board.move(7, 'X');
+  t.truthy(board.hasWon());
+  
+  board.reset();
+  t.falsy(board.hasWon());
+  
+  board.move(2, 'X');
+  board.move(5, 'X');
+  board.move(8, 'X');
+  t.truthy(board.hasWon());
+});
+
+Test(`hasWon() is true when someone has won diagonally`, t => {
+  const board = new Board();
+  board.move(0, 'X');
+  board.move(4, 'X');
+  board.move(8, 'X');
+  t.truthy(board.hasWon());
+  
+  board.reset();
+  board.move(2, 'X');
+  board.move(4, 'X');
+  board.move(6, 'X');
+  t.truthy(board.hasWon());
+});
+
+
 

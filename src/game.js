@@ -121,7 +121,9 @@ export default class {
     }
   }
   
-  
+  /**
+   *
+   */
   captureInput() {
     
   }
